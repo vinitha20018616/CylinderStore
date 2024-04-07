@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cylinder Store</title>
+</head>
+
+<body>
+    <div>
+        <h1>Cylinder Store</h1>
+        <div>
+            {% for cylinder in cylinders %}
+            <div>
+                <div>
+                    <div>
+                        <h5>{{ cylinder.name }}</h5>
+                        <p>Capacity: {{ cylinder.capacity }}</p>
+                        <p>Price: {{ cylinder.price }} Euro</p>
+                        <a href="#"><button>Buy Now</button></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>
