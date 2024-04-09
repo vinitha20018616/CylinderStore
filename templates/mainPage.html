@@ -2,20 +2,23 @@
 <html>
 <head>
     <title>Cylinder Store</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 </head>
 
 <body>
-    <div>
+    <div class="container">
         <h1>Cylinder Store</h1>
-        <div>
+
+        <div class="row cylinder-list">
             {% for cylinder in cylinders %}
-            <div>
-                <div>
-                    <div>
-                        <h5>{{ cylinder.name }}</h5>
-                        <p>Capacity: {{ cylinder.capacity }}</p>
-                        <p>Price: {{ cylinder.price }} Euro</p>
-                        <a href="#"><button>Buy Now</button></a>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ cylinder.name }}</h5>
+                        <img src="{{ url_for('static', filename=cylinder.image) }}" width="250px" height="300px">
+                        <p class="card-text">Capacity: {{ cylinder.capacity }}</p>
+                        <p class="card-text font-weight-bold">Price: {{ cylinder.price }} Euro</p>
+                        <a href="/thanks"><button class="btn btn-primary">Buy Now</button></a>
                     </div>
                 </div>
             </div>

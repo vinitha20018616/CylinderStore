@@ -27,6 +27,24 @@ def mainPage():
     return render_template('register.html')
 
 
+@app.route('/checkLogin', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+
+    user = mongo.db.users.find_one({"username": username, "password": password})
+
+    if user:
+        return redirect('/main') 
+    else:
+        return redirect(url_for('show_login', message='Incorrect username or password'))
+
+@app.route('/login')
+def show_login():
+    message = request.args.get('message')
+    return render_template('login.html', message=message)
+
+
 cylinders = [
     {'name': 'Oxygen Cylinder', 'image': 'img/cylinder1.jpg', 'price': 100, 'capacity': '10L'},
     {'name': 'Nitrogen Cylinder', 'image': 'img/cylinder2.jpg', 'price': 150, 'capacity': '15L'},
