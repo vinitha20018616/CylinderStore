@@ -45,6 +45,10 @@ def show_login():
     return render_template('login.html', message=message)
 
 
+@app.route('/thanks')
+def thanks():
+    return render_template('thanks.html')
+
 cylinders = [
     {'name': 'Oxygen Cylinder', 'image': 'img/cylinder1.jpg', 'price': 100, 'capacity': '10L'},
     {'name': 'Nitrogen Cylinder', 'image': 'img/cylinder2.jpg', 'price': 150, 'capacity': '15L'},
