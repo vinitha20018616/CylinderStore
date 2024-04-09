@@ -9,6 +9,19 @@
     <div class="container">
         <h1>Cylinder Store</h1>
 
+        <div class="search-sort">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search">
+
+            <div>
+                <label for="sortSelect">Sort By Price:</label>
+                <select class="form-select" id="sortSelect">
+                    <option value="default">Default</option>
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </div>
+        </div>
+
         <div class="row cylinder-list">
             {% for cylinder in cylinders %}
             <div class="col-md-4">
@@ -26,5 +39,58 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const cylinderCards = $('.cylinder-list .card');
+    
+            $('#searchInput').on('input', function() {
+                const searchTerm = $(this).val().toLowerCase();
+    
+                cylinderCards.each(function() {
+                    const cardTitle = $(this).find('.card-title').text().toLowerCase();
+                    if (cardTitle.includes(searchTerm)) {
+                        $(this).show(); 
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+    
+        $('#sortSelect').on('change', function() {
+            const sortOption = $(this).val();
+            
+            const sortedCards = cylinderCards.toArray().sort(function(a, b) {
+                const priceAElement = $(a).find('.card-text').last();
+                const priceBElement = $(b).find('.card-text').last();
+                const priceAText = priceAElement.text().trim();
+                const priceBText = priceBElement.text().trim();
+                const priceA = parseFloat(priceAText.replace('Price: $', ''));
+                const priceB = parseFloat(priceBText.replace('Price: $', ''));
+                
+                if (sortOption === 'asc') {
+                    return priceA - priceB; 
+                } else if (sortOption === 'desc') {
+                    return priceB - priceA;
+                } else { 
+                    return 0;  
+                }
+            });
+            
+        $('.cylinder-list').empty();
+        
+        for (let i = 0; i < sortedCards.length; i += 3) {
+            const row = $('<div class="row-md-4 col-md-4"></div>');
+            for (let j = i; j < i + 3 && j < sortedCards.length; j++) {
+                const card = sortedCards[j];
+                row.append($(card));
+            }
+            $('.cylinder-list').append(row);
+        }
+    });
+    
+    
+    });
+    </script>
 </body>
 </html>
